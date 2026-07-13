@@ -1,0 +1,19 @@
+services:
+  davetiye:
+    build: .
+    container_name: soz-davetiye
+    restart: unless-stopped
+    ports:
+      - "4444:4444"
+    environment:
+      - PORT=4444
+    env_file:
+      - .env.docker
+    volumes:
+      - ./data:/app/data
+    networks:
+      - tunnel-net
+
+networks:
+  tunnel-net:
+    external: true

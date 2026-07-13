@@ -32,10 +32,19 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
 
+# misafir galeri verisi (yerel/Docker'da fiziksel olarak saklanır)
+/data
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/.claude
+
+AGENTS.md
+CLAUDE.md
