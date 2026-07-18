@@ -55,6 +55,10 @@ export const invitationConfig = {
     autoRefreshGallery: false,
     // Otomatik yenileme açıksa kaç saniyede bir kontrol edileceği.
     autoRefreshIntervalSeconds: 30,
+
+    // Zarfa hiç dokunulmazsa kaç saniye sonra kendiliğinden açılacağı.
+    // Zarftaki geri sayım halkası da otomatik olarak bu süreye göre ayarlanır.
+    envelopeAutoOpenSeconds: 3,
   },
 
   music: {
