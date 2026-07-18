@@ -1,9 +1,15 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, type Variants } from "framer-motion";
 import { invitationConfig } from "@/config/invitation";
 import CornerOrnament from "@/components/decor/CornerOrnament";
 import Divider from "@/components/decor/Divider";
+import ScrollHint from "@/components/decor/ScrollHint";
+
+function easeInOutQuad(t: number) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
 
 const container: Variants = {
   hidden: {},
@@ -20,6 +26,41 @@ const item: Variants = {
 export default function Hero({ revealed }: { revealed: boolean }) {
   const { bride, groom } = invitationConfig.couple;
   const { title, dateLabel, dayLabel, timeLabel, invitationNote } = invitationConfig.event;
+  const hasNudgedRef = useRef(false);
+
+  useEffect(() => {
+    if (!revealed || hasNudgedRef.current) return;
+
+    const timer = window.setTimeout(() => {
+      if (hasNudgedRef.current || window.scrollY > 0) return;
+      hasNudgedRef.current = true;
+
+      const distance = 50;
+      const downMs = 500;
+      const holdMs = 150;
+      const upMs = 500;
+      const total = downMs + holdMs + upMs;
+      const start = performance.now();
+
+      const step = (now: number) => {
+        const elapsed = now - start;
+        let y = 0;
+        if (elapsed < downMs) {
+          y = distance * easeInOutQuad(elapsed / downMs);
+        } else if (elapsed < downMs + holdMs) {
+          y = distance;
+        } else if (elapsed < total) {
+          y = distance * (1 - easeInOutQuad((elapsed - downMs - holdMs) / upMs));
+        }
+        window.scrollTo(0, y);
+        if (elapsed < total) requestAnimationFrame(step);
+      };
+
+      requestAnimationFrame(step);
+    }, 1000);
+
+    return () => window.clearTimeout(timer);
+  }, [revealed]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
@@ -72,17 +113,7 @@ export default function Hero({ revealed }: { revealed: boolean }) {
         </motion.div>
       </motion.div>
 
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gold-dark"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: revealed ? 1 : 0, y: [0, 8, 0] }}
-        transition={{ opacity: { delay: 1.4, duration: 0.6 }, y: { duration: 1.8, repeat: Infinity } }}
-        aria-hidden
-      >
-        <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
-          <path d="M10 0V28M10 28L2 20M10 28L18 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </motion.div>
+      <ScrollHint visible={revealed} />
     </section>
   );
 }
