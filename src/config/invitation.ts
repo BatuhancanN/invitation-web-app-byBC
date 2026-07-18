@@ -21,7 +21,7 @@ export const invitationConfig = {
       "Hayatımızın en anlamlı gününde sevdiklerimizle birlikte olmaktan mutluluk duyarız.",
     // Tören saati geldiğinde geri sayımın yerini alacak mesaj.
     postEventTitle: "Bu Anlamlı Günde Yanımızda Olduğunuz İçin Teşekkür Ederiz",
-    postEventNote: "Paylaştığınız güzel anıları yukarıdaki galeriden görebilirsiniz.",
+    postEventNote: "Paylaştığınız güzel anıları aşağıdaki galeriden görebilirsiniz.",
   },
 
   venue: {
