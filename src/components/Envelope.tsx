@@ -106,21 +106,27 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
                 stage === "closed" ? "animate-envelope-idle" : ""
               }`}
             >
-              {/* Envelope back pocket */}
-              <div className="absolute inset-0 rounded-sm bg-gradient-to-b from-cream-dark to-[#ecdfc2] shadow-[0_20px_60px_-15px_rgba(143,109,49,0.45)] border border-gold-light/60" />
+              {/* Envelope silhouette — thin gold outline, minimal fill */}
+              <div className="absolute inset-0 rounded-xl bg-cream border border-gold shadow-[0_10px_30px_-14px_rgba(143,109,49,0.35)]" />
 
-              {/* Bottom triangular flap (always visible, behind card) */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-full"
-                style={{
-                  clipPath: "polygon(0% 100%, 50% 40%, 100% 100%)",
-                  background: "linear-gradient(to top, #e9dab8, #f5ecdb)",
-                }}
-              />
+              {/* Inner pocket line — asymmetric, hand-drawn feel */}
+              <svg
+                viewBox="0 0 320 210"
+                className="absolute inset-0 w-full h-full"
+                fill="none"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M14,198 Q130,112 170,96 Q238,120 306,198"
+                  stroke="var(--color-gold-light)"
+                  strokeWidth="1.25"
+                  strokeLinecap="round"
+                />
+              </svg>
 
               {/* Card that slides up out of the envelope */}
               <motion.div
-                className="absolute left-1/2 top-2 w-[85%] h-[75%] -translate-x-1/2 rounded-[2px] bg-cream shadow-md border border-gold-light/70 flex flex-col items-center justify-center px-4 z-10"
+                className="absolute left-1/2 top-2 w-[85%] h-[75%] -translate-x-1/2 rounded-md bg-cream shadow-[0_8px_24px_-12px_rgba(143,109,49,0.35)] border border-gold flex flex-col items-center justify-center px-4 z-10"
                 initial={{ y: 10, opacity: 0, scale: 0.94 }}
                 animate={cardAnimate}
                 transition={{ type: "spring", stiffness: 100, damping: 16 }}
@@ -134,22 +140,29 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
                 </p>
               </motion.div>
 
-              {/* Top flap that opens like a real envelope */}
-              <motion.div
-                className="absolute inset-x-0 top-0 h-1/2 origin-top z-20"
-                style={{
-                  clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
-                  background: "linear-gradient(to bottom, #d9bf8a, #e9dab8)",
-                  transformStyle: "preserve-3d",
-                }}
+              {/* Top flap that opens like a real envelope — thin gold line-art, asymmetric dip */}
+              <motion.svg
+                viewBox="0 0 320 210"
+                className={`absolute inset-0 w-full h-full ${stage === "closed" ? "z-20" : "z-[5]"}`}
+                preserveAspectRatio="none"
+                style={{ transformOrigin: "50% 0%", transformStyle: "preserve-3d" }}
                 animate={{ rotateX: stage === "closed" ? 0 : -180 }}
                 transition={{ type: "spring", stiffness: 120, damping: 14 }}
-              />
+              >
+                <path
+                  d="M8,8 Q120,72 185,108 Q250,58 312,8 Z"
+                  fill="var(--color-cream-dark)"
+                  fillOpacity="0.96"
+                  stroke="var(--color-gold)"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </motion.svg>
 
               {/* Golden light burst from the seal, once ignited */}
               {showGleam && (
                 <motion.div
-                  className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 z-25 w-16 h-16 rounded-full pointer-events-none"
+                  className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 z-25 w-14 h-14 rounded-full pointer-events-none"
                   style={{
                     background:
                       "radial-gradient(circle, var(--color-gold-light) 0%, transparent 70%)",
@@ -203,9 +216,9 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
                 </svg>
               )}
 
-              {/* Wax seal */}
+              {/* Seal — thin gold ring, initials in script */}
               <motion.div
-                className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-gradient-to-br from-gold-light to-gold-dark shadow-md flex items-center justify-center border border-gold-dark/40 animate-seal-glow"
+                className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-cream flex items-center justify-center border-[1.5px] border-gold animate-seal-glow"
                 animate={{
                   opacity: stage === "closed" ? 1 : 0,
                   scale: stage === "closed" ? 1 : 1.15,
@@ -213,7 +226,7 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
                 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
-                <span className="font-script text-cream text-lg leading-none">{initials}</span>
+                <span className="font-script text-gold-dark text-base leading-none">{initials}</span>
               </motion.div>
             </div>
           </button>
