@@ -73,6 +73,37 @@ body {
   }
 }
 
+@keyframes envelope-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes seal-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0px 0px rgba(212, 184, 118, 0), 0 4px 10px rgba(0, 0, 0, 0.35),
+      0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(212, 184, 118, 0.6), 0 4px 10px rgba(0, 0, 0, 0.35),
+      0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: 176;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .animate-float-slow {
   animation: float-slow 6s ease-in-out infinite;
 }
@@ -86,8 +117,25 @@ body {
   animation: shimmer 3.5s linear infinite;
 }
 
+.animate-shimmer-once {
+  background-size: 200% auto;
+  animation: shimmer 0.7s linear forwards;
+}
+
 .animate-petal-fall {
   animation: petal-fall linear infinite;
+}
+
+.animate-envelope-idle {
+  animation: envelope-idle 4.5s ease-in-out infinite;
+}
+
+.animate-seal-glow {
+  animation: seal-glow 2.6s ease-in-out infinite;
+}
+
+.animate-ring-fill {
+  animation: ring-fill 5s linear forwards;
 }
 
 .text-shadow-gold {
