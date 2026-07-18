@@ -15,7 +15,7 @@ export const invitationConfig = {
     // ISO 8601 formatında, yerel saat dilimine göre
     isoDate: "2026-07-26T18:00:00",
     dateLabel: "26 Temmuz 2026",
-    dayLabel: "Pazar",
+    dayLabel: "Pazarr",
     timeLabel: "18:00",
     invitationNote:
       "Hayatımızın en anlamlı gününde sevdiklerimizle birlikte olmaktan mutluluk duyarız.",
