@@ -15,6 +15,7 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
   const [stage, setStage] = useState<Stage>("closed");
   const { bride, groom } = invitationConfig.couple;
   const initials = `${bride[0]}${groom[0]}`;
+  const autoOpenSeconds = invitationConfig.features.envelopeAutoOpenSeconds;
 
   const hasTriggeredRef = useRef(false);
   const timersRef = useRef<number[]>([]);
@@ -64,7 +65,7 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
   };
 
   useEffect(() => {
-    const autoId = window.setTimeout(triggerOpen, 5000);
+    const autoId = window.setTimeout(triggerOpen, autoOpenSeconds * 1000);
     timersRef.current.push(autoId);
     return () => clearTimers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -219,7 +220,7 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
                 />
               )}
 
-              {/* 5-second countdown ring around the seal */}
+              {/* Countdown ring around the seal, timed to envelopeAutoOpenSeconds */}
               {stage === "closed" && (
                 <svg
                   width="72"
@@ -247,6 +248,7 @@ export default function Envelope({ onOpen }: { onOpen: () => void }) {
                     strokeLinecap="round"
                     strokeDasharray={RING_CIRCUMFERENCE}
                     className="animate-ring-fill"
+                    style={{ animationDuration: `${autoOpenSeconds}s` }}
                   />
                 </svg>
               )}
