@@ -76,6 +76,12 @@ export default function EventDetails() {
           <h3 className="font-serif text-xl text-ink">Mekan</h3>
           <p className="font-body text-lg text-ink-soft">{venue.name}</p>
           <p className="font-body text-sm text-ink-soft/80 max-w-xs">{venue.address}</p>
+          {venue.note && (
+            <>
+              <span className="h-px w-8 bg-gold-light" />
+              <p className="font-body text-sm italic text-gold-dark max-w-xs">{venue.note}</p>
+            </>
+          )}
         </motion.div>
       </div>
 

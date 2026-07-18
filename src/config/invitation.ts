@@ -36,6 +36,9 @@ export const invitationConfig = {
     // "Yol Tarifi Al" butonu bu linke gider, Google Maps'te açılır.
     mapLink:
       "https://www.google.com/maps/search/39.946375,+32.574360?entry=tts&g_ep=EgoyMDI2MDYyOS4wIPu8ASoASAFQAw%3D%3D&skid=fe08b4f6-1ba4-4b3d-a1c2-f91e3bfb3ccd",
+    // Mekan bilgisinin altında gösterilecek kısa bir not (opsiyonel).
+    // İstemiyorsanız boş string "" bırakabilirsiniz, hiç görünmez.
+    note: "Erkek tarafı önce erkek evinde toplanacaktır.",
   },
 
   features: {
